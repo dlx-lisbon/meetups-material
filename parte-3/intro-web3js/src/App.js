@@ -13,6 +13,8 @@ class App extends Component {
             balance: '',
             transferAmount: '',
             transferTo: '',
+            DLXToken: undefined,
+            userAccount: '',
         };
     }
 
@@ -25,12 +27,14 @@ class App extends Component {
         DLXTokenContract.setProvider(web3.currentProvider);
         const DLXToken = await DLXTokenContract.deployed();
         //
-        const accounts = await web3.eth.getAccounts();
+        const userAccount = (await web3.eth.getAccounts())[0];
 
         this.setState(
             {
                 totalSupply: (await DLXToken.totalSupply()).toString(),
-                balance: (await DLXToken.balanceOf(accounts[0])).toString()
+                balance: (await DLXToken.balanceOf(userAccount)).toString(),
+                DLXToken,
+                userAccount,
             }
         );
     }
@@ -44,7 +48,8 @@ class App extends Component {
     }
 
     handleSubmit = (event) => {
-        // submit
+        const { DLXToken, transferAmount, transferTo, userAccount } = this.state;
+        DLXToken.transfer(transferTo, transferAmount, { from: userAccount });
         event.preventDefault();
     }
 
