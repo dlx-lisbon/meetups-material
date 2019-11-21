@@ -12,11 +12,11 @@ module.exports = {
             port: 8545,            // Standard Ethereum port (default: none)
             network_id: "*",       // Any network (default: none)
         },
-        ropsten: {
+        goerli: {
             // must be a thunk, otherwise truffle commands may hang in CI
             provider: () =>
-                new HDWalletProvider(mnemonic, "https://ropsten.infura.io/v3/a-tua-key"),
-            network_id: '3',
+                new HDWalletProvider(mnemonic, "https://goerli.infura.io/v3/a-tua-key"),
+            network_id: '5',
         }
     },
 
