@@ -1,9 +1,9 @@
 
-// const HDWalletProvider = require('truffle-hdwallet-provider');
+const HDWalletProvider = require('@truffle/hdwallet-provider');
 // const infuraKey = "fj4jll3k.....";
 //
-// const fs = require('fs');
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
+const fs = require('fs');
+const mnemonic = ''; // fs.readFileSync(".secret").toString().trim();
 
 module.exports = {
     networks: {
@@ -12,6 +12,12 @@ module.exports = {
             port: 8545,            // Standard Ethereum port (default: none)
             network_id: "*",       // Any network (default: none)
         },
+        ropsten: {
+            // must be a thunk, otherwise truffle commands may hang in CI
+            provider: () =>
+                new HDWalletProvider(mnemonic, "https://ropsten.infura.io/v3/a-tua-key"),
+            network_id: '3',
+        }
     },
 
     // Set default mocha options here, use special reporters etc.
