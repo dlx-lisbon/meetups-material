@@ -22,7 +22,7 @@ contract DLXToken is ERC20, ERC20Detailed, Ownable {
         uint256 nUsers = _participants.length;
         for (uint256 u = 0; u < nUsers; u += 1) {
             participants.push(_participants[u]);
-            _mint(_participants[u], 1000);
+            _mint(_participants[u], 1000 * 1000000000000000000);
         }
         // make the multisig wallet the owner
         _transferOwnership(msg.sender);
@@ -36,7 +36,7 @@ contract DLXToken is ERC20, ERC20Detailed, Ownable {
         // mint _amount tokens to each participant
         uint256 nUsers = participants.length;
         for (uint256 u = 0; u < nUsers; u += 1) {
-            _mint(participants[u], _amount);
+            _mint(participants[u], _amount * 1000000000000000000);
         }
     }
 }
