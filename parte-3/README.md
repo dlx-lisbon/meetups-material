@@ -22,6 +22,8 @@ Registem dúvidas que aparecam entretanto e vamos discuti-las no proximo meetup.
 
 Abraço, até a proxima.
 
+PS. Afinal, o yarn também tem emojis na linha do linux https://github.com/yarnpkg/yarn/issues/960 
+
 
 
 # Para completar
