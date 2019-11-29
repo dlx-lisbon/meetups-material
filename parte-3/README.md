@@ -1,3 +1,29 @@
+## Obrigado
+
+Mais uma vez, obrigado a todos que participaram. Espero que tenham gostado e aprendido algo novo. Este foi o terceiro e ultimo meetup da serie 101-dapp.
+
+## Revisão
+
+Neste terceiro meetup, (utilizado um ambiente virtual tal como foi feito no primeiro e também no segundo meetup), vimos como conectar o frontend a um smart contract. O smart contracto utilizado foi o DLXToken da parte 2 (segundo meetup) e fazendo um link aos ficheiros relativos aos contractos deployed (através de `yarn link-contracts` na pasta "parte-3/intro-web3js"), conectamos o frontend.
+
+Como agradecimento aos primeiros membros do meetup, oferecemos alguns stickers. E [a pedido de muitas familias](apedidodemuitasfamilias.jpg), aqui ficam todos os links relativos aos stickers-
+* https://pinata.cloud/
+* https://chain.link/
+* https://raiden.network/
+* https://www.portis.io/
+* https://thegraph.com/
+* https://3box.io/
+
+Também tivemos umas hardware wallet
+* https://trezor.io/
+* https://www.ledger.com/
+
+Registem dúvidas que aparecam entretanto e vamos discuti-las no proximo meetup.
+
+Abraço, até a proxima.
+
+
+
 # Para completar
 
 1. completar imports
