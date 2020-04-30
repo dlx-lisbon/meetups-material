@@ -1,0 +1,39 @@
+{
+    "name": "intro-web3js",
+    "version": "0.1.0",
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "link-contracts": "run-script-os",
+        "link-contracts:linux:darwin": "cd src && ln -s ../../../parte-2/dlxtoken/build/contracts contracts",
+        "link-contracts:win32": "cd src && mklink \\D contracts ..\\..\\..\\parte-2\\dlxtoken\\build\\contracts"
+    },
+    "dependencies": {
+        "@truffle/contract": "4.0.37",
+        "react": "16.11.0",
+        "react-dom": "16.11.0",
+        "react-scripts": "3.2.0",
+        "web3": "1.2.2"
+    },
+    "devDependencies": {
+        "ganache-cli": "6.7.0",
+        "run-script-os": "1.0.7"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}

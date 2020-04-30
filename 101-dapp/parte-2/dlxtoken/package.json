@@ -1,0 +1,12 @@
+{
+    "name": "parte-2",
+    "version": "1.0.0",
+    "scripts": {
+        "test": "scripts/test.sh"
+    },
+    "dependencies": {
+        "@openzeppelin/contracts": "2.3.0",
+        "@truffle/hdwallet-provider": "1.0.25",
+        "truffle": "5.0.41"
+    }
+}
