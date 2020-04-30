@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { ethers, Wallet } from 'ethers';
+import React, { useState } from 'react';
+import { ethers } from 'ethers';
 import {
     Box,
     Button,
@@ -9,67 +9,52 @@ import {
     Input,
     Field,
     Flex,
+    Text,
 } from 'rimble-ui';
 
 
 function App() {
     const [loggedin, setLoggedin] = useState<boolean>(false);
-    const [validated, setValidated] = useState<boolean>(false);
-    const [inputValue, setInputValue] = useState<string>('');
-
-    const validateForm = () => {
-        // Perform advanced validation here
-        if (inputValue.length > 0) {
-            setValidated(true);
-        } else {
-            setValidated(false);
-        }
-    };
+    const [inputMessage, setInputMessage] = useState<string>('');
+    const [signatureResult, setSignatureResult] = useState<string>('');
+    const [inputMessageVerification, setInputMessageVerification] = useState<string>('');
+    const [inputSignatureVerification, setInputSignatureVerification] = useState<string>('');
+    const [verificationSignResult, setVerificationSignResult] = useState<string>('');
 
     const validateInput = (e: any) => {
         e.target.parentNode.classList.add("was-validated");
     };
 
     const handleInput = (e: any) => {
-        setInputValue(e.target.value);
-        validateForm();
+        switch (e.target.name) {
+            case 'message': {
+                setInputMessage(e.target.value);
+                break;
+            }
+            case 'messageVerification': {
+                setInputMessageVerification(e.target.value);
+                break;
+            }
+            case 'signatureVerification': {
+                setInputSignatureVerification(e.target.value);
+                break;
+            }
+        }
         validateInput(e);
     };
 
-    const handleSubmit = (e: any) => {
+    const handleSubmitSignMessage = (e: any) => {
         const provider = new ethers.providers.Web3Provider((window as any).ethereum);
         const signer = provider.getSigner();
+        signer.signMessage(inputMessage)
+            .then((signature) => setSignatureResult(signature));
+        e.preventDefault();
+    };
 
-        // Sign a text message
-        let signPromise = signer.signMessage(inputValue)
-
-        signPromise.then((signature) => {
-
-            // Flat-format
-            console.log(signature);
-            // "0xea09d6e94e52b48489bd66754c9c02a772f029d4a2f136bba9917ab3042a0474
-            //    301198d8c2afb71351753436b7e5a420745fed77b6c3089bbcca64113575ec3c
-            //    1c"
-
-            // Expanded-format
-            console.log(ethers.utils.splitSignature(signature));
-            // {
-            //   r: "0xea09d6e94e52b48489bd66754c9c02a772f029d4a2f136bba9917ab3042a0474",
-            //   s: "0x301198d8c2afb71351753436b7e5a420745fed77b6c3089bbcca64113575ec3c",
-            //   v: 28,
-            //   recoveryParam: 1
-            //  }
-
-            // https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/cryptography/ECDSA.sol
-
-
-            let signingAddress = ethers.utils.verifyMessage(inputValue, signature);
-
-            console.log(signingAddress);
-            // "0x14791697260E4c9A71f18484C9f997B308e59325"
-
-            console.log(ethers.utils.hashMessage(inputValue));
-        });
+    const handleSubmitVerificationSign = (e: any) => {
+        setVerificationSignResult(
+            ethers.utils.verifyMessage(inputMessageVerification, inputSignatureVerification),
+        );
         e.preventDefault();
     };
 
@@ -91,37 +76,51 @@ function App() {
             <Flex>
                 <Box p={3} width={1 / 2}>
                     <Heading as={"h2"}>Assinar</Heading>
-                    <Form onSubmit={handleSubmit}>
-                        <Field label="Mensagem" validated={validated} width={1}>
+                    <Form onSubmit={handleSubmitSignMessage}>
+                        <Field label="Mensagem" validated={true} width={1}>
                             <Input
                                 type="text"
+                                name="message"
                                 required // set required attribute to use brower's HTML5 input validation
                                 onChange={handleInput}
-                                value={inputValue}
+                                value={inputMessage}
                                 width={1}
                             />
                         </Field>
-                        <Button type="submit" disabled={!validated}>
+                        <Button type="submit" disabled={false}>
                             Assinar Mensagem
                         </Button>
                     </Form>
+                    <Text>{signatureResult}</Text>
                 </Box>
                 <Box p={3} width={1 / 2}>
-                    {/* <Heading as={"h2"}>Verificar</Heading>
-                    <Form onSubmit={handleSubmit}>
-                        <Field label="Mensagem" validated={validated} width={1}>
+                    <Heading as={"h2"}>Verificar</Heading>
+                    <Form onSubmit={handleSubmitVerificationSign}>
+                        <Field label="Mensagem" validated={true} width={1}>
                             <Input
                                 type="text"
+                                name="messageVerification"
                                 required // set required attribute to use brower's HTML5 input validation
                                 onChange={handleInput}
-                                value={inputValue}
+                                value={inputMessageVerification}
                                 width={1}
                             />
                         </Field>
-                        <Button type="submit" disabled={!validated}>
+                        <Field label="Assinatura" validated={true} width={1}>
+                            <Input
+                                type="text"
+                                name="signatureVerification"
+                                required // set required attribute to use brower's HTML5 input validation
+                                onChange={handleInput}
+                                value={inputSignatureVerification}
+                                width={1}
+                            />
+                        </Field>
+                        <Button type="submit" disabled={false}>
                             Assinar Mensagem
                         </Button>
-                    </Form> */}
+                    </Form>
+                    <Text>{verificationSignResult}</Text>
                 </Box>
             </Flex>
         </div>
